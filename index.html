@@ -8,20 +8,20 @@
 :root { --bg:#0d1420; --panel:rgba(15,23,36,.90); --text:#eef3ff; --muted:#aeb9ce; --axis:#d8e2f3; --accent:#76d1ff; }
 html,body { margin:0; height:100%; overflow:hidden; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,Segoe UI,sans-serif; }
 #app { position:fixed; inset:0; } canvas { display:block; }
-#topbar { position:fixed; top:0; left:0; right:0; min-height:60px; z-index:20; display:flex; align-items:center; gap:8px; padding:8px 12px; box-sizing:border-box; background:linear-gradient(180deg, rgba(12,18,30,.98), rgba(12,18,30,.74)); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.12); flex-wrap:wrap; }
+#topbar { position:fixed; top:0; left:0; right:0; min-height:60px; z-index:40; display:flex; align-items:center; gap:8px; padding:8px 12px; box-sizing:border-box; background:linear-gradient(180deg, rgba(12,18,30,.98), rgba(12,18,30,.74)); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.12); flex-wrap:wrap; }
 #title { font-weight:700; font-size:15px; white-space:nowrap; margin-right:4px; }
 #search { width:260px; max-width:28vw; background:rgba(255,255,255,.10); color:var(--text); border:1px solid rgba(255,255,255,.16); border-radius:10px; padding:9px 10px; outline:none; }
 button,label.check,select { background:rgba(255,255,255,.08); color:var(--text); border:1px solid rgba(255,255,255,.16); border-radius:10px; padding:8px 10px; font-size:12px; cursor:pointer; }
 button.active { background:rgba(118,209,255,.22); border-color:rgba(118,209,255,.50); }
 button:hover,label.check:hover { background:rgba(255,255,255,.14); } label.check { display:flex; align-items:center; gap:6px; } input[type=checkbox] { accent-color:#76d1ff; }
-#axis { position:fixed; top:60px; left:0; right:0; height:36px; z-index:19; pointer-events:none; background:linear-gradient(180deg, rgba(14,20,32,.94), rgba(14,20,32,.55)); border-bottom:1px solid rgba(255,255,255,.10); }
-.tick { position:absolute; top:0; width:1px; height:36px; background:rgba(216,226,243,.48); } .tick span { position:absolute; top:5px; left:5px; font-size:11px; color:var(--axis); text-shadow:0 1px 2px #000; }
-#rowLabels { position:fixed; top:96px; left:0; bottom:0; width:180px; z-index:10; pointer-events:none; overflow:hidden; } .rowLabel { position:absolute; left:8px; font-size:11px; color:rgba(238,243,255,.78); text-shadow:0 1px 2px #000; white-space:nowrap; }
+#axis { position:fixed; top:var(--axis-top, 60px); left:0; right:0; height:42px; z-index:38; pointer-events:none; background:linear-gradient(180deg, rgba(14,20,32,.98), rgba(14,20,32,.78)); border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.18); box-shadow:0 8px 18px rgba(0,0,0,.22); }
+.tick { position:absolute; top:0; width:1px; height:42px; background:rgba(216,226,243,.62); } .tick.major { background:rgba(255,255,255,.78); } .tick span { position:absolute; top:6px; left:5px; font-size:12px; font-weight:650; color:var(--axis); text-shadow:0 1px 3px #000; white-space:nowrap; } #axisTitle { position:absolute; left:184px; top:22px; right:0; height:1px; background:rgba(216,226,243,.42); } #axisTitle span { position:absolute; left:8px; top:-17px; font-size:11px; color:rgba(238,243,255,.70); background:rgba(14,20,32,.85); padding:1px 6px; border-radius:999px; }
+#rowLabels { position:fixed; top:var(--rows-top, 102px); left:0; bottom:0; width:180px; z-index:12; pointer-events:none; overflow:hidden; } .rowLabel { position:absolute; left:8px; font-size:11px; color:rgba(238,243,255,.78); text-shadow:0 1px 2px #000; white-space:nowrap; }
 #legend { position:fixed; left:12px; bottom:12px; z-index:20; background:var(--panel); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:10px 12px; width:280px; box-shadow:0 12px 30px rgba(0,0,0,.24); }
 #legend h3,#detail h3 { margin:0 0 8px 0; font-size:13px; } .legendItem { display:flex; align-items:center; gap:8px; margin:5px 0; font-size:12px; color:var(--muted); } .sw { width:11px; height:11px; border-radius:99px; display:inline-block; }
 #detail { position:fixed; top:106px; right:12px; bottom:12px; width:390px; max-width:34vw; overflow:auto; z-index:20; background:var(--panel); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px; box-sizing:border-box; box-shadow:0 12px 30px rgba(0,0,0,.26); }
 #detail .meta { color:var(--muted); font-size:12px; line-height:1.7; margin-bottom:8px; } #detail .memo { white-space:pre-wrap; line-height:1.72; font-size:13px; } #detail .warn { color:#ffd78a; margin:6px 0; }
-#stats { position:fixed; right:14px; top:66px; z-index:21; color:rgba(238,243,255,.75); font-size:11px; background:rgba(0,0,0,.22); padding:5px 8px; border-radius:999px; }
+#stats { position:fixed; right:14px; top:calc(var(--axis-top, 60px) + 8px); z-index:41; color:rgba(238,243,255,.75); font-size:11px; background:rgba(0,0,0,.22); padding:5px 8px; border-radius:999px; }
 #tooltip { position:fixed; z-index:50; pointer-events:none; max-width:340px; background:rgba(8,12,20,.96); color:var(--text); border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:8px 10px; font-size:12px; line-height:1.45; display:none; box-shadow:0 10px 28px rgba(0,0,0,.32); }
 #help { position:fixed; left:306px; bottom:12px; z-index:20; max-width:680px; background:rgba(16,24,38,.72); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:10px 12px; font-size:12px; color:var(--muted); line-height:1.6; }
 .pill { display:inline-block; padding:2px 6px; border-radius:999px; background:rgba(255,255,255,.08); margin:2px 4px 2px 0; } a { color:#9bddff; }
@@ -60,7 +60,7 @@ button:hover,label.check:hover { background:rgba(255,255,255,.14); } label.check
   <div class="legendItem"><span class="sw" style="background:#7d8798"></span> 開始年・直前名未精査</div>
   <div class="legendItem"><span class="sw" style="background:#f3f7ff; border-radius:2px"></span> 3D棒＝選択中の規模指標</div>
 </div>
-<div id="help">ドラッグで移動、ホイールで拡大縮小。3D棒グラフまたは視点回転をオンにすると、Shift+ドラッグで視点を回転できます。棒グラフ指標は「国立銀行系譜数／総資産／預金量／社員数」から選択できます。総資産・預金量・社員数はCSVで追加入力できます。上部の年号軸は縦方向に移動しても固定表示されます。</div>
+<div id="help">ドラッグで移動、ホイールで拡大縮小。3D棒グラフまたは視点回転をオンにすると、Shift+ドラッグで視点を回転できます。棒グラフ指標は「国立銀行系譜数／総資産／預金量／社員数」から選択できます。総資産・預金量・社員数はCSVで追加入力できます。上部の年号軸はツールバーの下に固定され、縦方向に移動しても常に表示されます。</div>
 <div id="detail"><h3>ノード情報</h3><div class="meta">ノードをクリックしてください。</div><div class="memo">平行年表では153行の並びを維持し、支流は奥行き方向に表示します。ツリー表示では左端の153個の国立銀行ノードは保持し、それ以降の同名銀行ノードを統合します。</div></div>
 <div id="tooltip"></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -213,8 +213,42 @@ function updateLabelVisibility(){const set=activeSet(),show=document.getElementB
 function focusSearch(){const q=document.getElementById('search').value.trim().toLowerCase(); if(!q)return; const set=activeSet(); let found=null; for(const n of set.map.values()){if((n.label+' '+n.memo+' '+n.current+' '+(n.row_label||'')).toLowerCase().includes(q)){found=n;break;}} if(found){view.x=found.x; view.y=found.y; view.zoom=2.4; setupCamera(); updateAxis(); updateRowLabels(); updateLabelVisibility(); selectNode(found);}}
 function updateStats(matchCount=null){const set=activeSet(); document.getElementById('stats').textContent=`${activeLayout==='parallel'?'平行':'ツリー'} / ${bars?'3D棒あり':'線図'} / 指標: ${METRIC_DEFS[activeMetric].label} / ${set.nodeObjs.length.toLocaleString()} nodes / ${set.edgeObjs.length.toLocaleString()} edges${matchCount!==null?' / 検索一致 '+matchCount:''}`;}
 function projectToScreen(v){const p=v.clone().project(camera); return {x:(p.x+1)/2*window.innerWidth,y:(1-p.y)/2*window.innerHeight,visible:p.z>-1&&p.z<1};}
-function updateAxis(){const axis=document.getElementById('axis'); axis.innerHTML=''; const step=view.zoom>3?2:(view.zoom>1.5?5:(view.zoom<.6?20:10)); for(let y=Math.ceil(YEAR_MIN/step)*step;y<=YEAR_MAX;y+=step){const p=projectToScreen(new THREE.Vector3(yearToX(y),view.y,0)); if(p.x<-100||p.x>window.innerWidth+100)continue; const d=document.createElement('div'); d.className='tick'; d.style.left=p.x+'px'; const s=document.createElement('span'); s.textContent=y; d.appendChild(s); axis.appendChild(d);}}
-function updateRowLabels(){const c=document.getElementById('rowLabels'); c.innerHTML=''; for(let no=1;no<=153;no++){const p=projectToScreen(new THREE.Vector3(yearToX(YEAR_MIN),noToY(no),0)); if(p.y<96||p.y>window.innerHeight)continue; const row=GRAPH.nodes.find(n=>n.type==='国立銀行'&&n.no===no); const d=document.createElement('div'); d.className='rowLabel'; d.style.top=(p.y-96)+'px'; d.textContent=row?`${no}. ${row.label}`:String(no); c.appendChild(d);}}
+function overlayLayout(){
+  const topbar=document.getElementById('topbar');
+  const h=Math.ceil((topbar&&topbar.getBoundingClientRect().height)||60);
+  const axisH=42, rowsTop=h+axisH;
+  document.documentElement.style.setProperty('--axis-top', h+'px');
+  document.documentElement.style.setProperty('--rows-top', rowsTop+'px');
+  return {topbar:h,axisH,rowsTop};
+}
+function worldXToFixedScreenX(x){
+  // 年号軸は3D投影に従わせず、横方向のパン/ズームだけに連動させる。
+  const sw=screenWorldSize();
+  return window.innerWidth/2 + (x-view.x)/sw.w*window.innerWidth;
+}
+function worldYToFixedScreenY(y){
+  // 左側の銀行名は縦スクロールに追従し、年号軸とは独立して動く。
+  const sw=screenWorldSize();
+  return window.innerHeight/2 - (y-view.y)/sw.h*window.innerHeight;
+}
+function updateAxis(){
+  const axis=document.getElementById('axis'); const layout=overlayLayout(); axis.innerHTML='';
+  const line=document.createElement('div'); line.id='axisTitle'; const cap=document.createElement('span'); cap.textContent='年号'; line.appendChild(cap); axis.appendChild(line);
+  const step=view.zoom>4?1:(view.zoom>2.4?2:(view.zoom>1.25?5:(view.zoom<.55?20:10)));
+  for(let y=Math.ceil(YEAR_MIN/step)*step;y<=YEAR_MAX;y+=step){
+    const x=worldXToFixedScreenX(yearToX(y)); if(x<-90||x>window.innerWidth+90)continue;
+    const d=document.createElement('div'); d.className='tick'+(y%10===0?' major':''); d.style.left=x+'px';
+    const sp=document.createElement('span'); sp.textContent=y; d.appendChild(sp); axis.appendChild(d);
+  }
+}
+function updateRowLabels(){
+  const layout=overlayLayout(); const c=document.getElementById('rowLabels'); c.innerHTML='';
+  for(let no=1;no<=153;no++){
+    const sy=worldYToFixedScreenY(noToY(no)); if(sy<layout.rowsTop-24||sy>window.innerHeight+24)continue;
+    const row=GRAPH.nodes.find(n=>n.type==='国立銀行'&&n.no===no); const d=document.createElement('div'); d.className='rowLabel';
+    d.style.top=(sy-layout.rowsTop)+'px'; d.textContent=row?`${no}. ${row.label}`:String(no); c.appendChild(d);
+  }
+}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
 function animate(){requestAnimationFrame(animate); renderer.render(scene,camera); updateAxis(); updateRowLabels();}
 init();
